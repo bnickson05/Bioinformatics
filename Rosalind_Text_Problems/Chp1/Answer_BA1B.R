@@ -1,0 +1,24 @@
+# This R implemented code is written for the following problem:  https://rosalind.info/problems/ba1b/
+library(tidyverse)
+# Write the function
+
+Frequent_Pattern <- function(Obsgene, length){
+  # create a Data Frame that keeps the sequence and the frequency of the found sequence
+  Patterns <- data.frame(Seq = character(), Freq = integer())
+  # Function Pre-req
+  iteration <- nchar(Obsgene) - length +1
+  # add sequence pattern that is found and the frequency using a loop
+  for (i in 1: iteration){
+    Current_Seq <- substr(Obsgene, i, i + length -1)
+    Patterns <- Patterns %>% add_row(Seq = Current_Seq, Freq = str_count(Obsgene, Current_Seq) )
+  }
+  Patterns <- unique(Patterns) # remove duplicates
+  max_freq <- max(Patterns$Freq, na.rm = TRUE) # find the maximum frequency
+  cat(Patterns[Patterns$Freq == max_freq, "Seq"]) # print all sequence with most freuquency
+}
+
+# Define the whole gene
+gene <- "TGTTCAGCTGATTTGACTGCCATTCCTGTTCAGCTGGCCATTCCGCCATTCCGCCATTCCTGTTCAGCTGTCCTTTGACAGATACTGTATTTGACTAGATACTGTAGATACTGTGCCATTCCAGATACTGTTGTTCAGCTGATTTGACTTGTTCAGCTGAGATACTGTTGTTCAGCTGGCCATTCCTGTTCAGCTGTGTTCAGCTGATTTGACTATTTGACTGCCATTCCAGATACTGTGCCATTCCTCCTTTGACGCCATTCCGCCATTCCAGATACTGTGCCATTCCGCCATTCCTCCTTTGACAGATACTGTTCCTTTGACATTTGACTATTTGACTTGTTCAGCTGAGATACTGTGCCATTCCATTTGACTGCCATTCCTGTTCAGCTGTCCTTTGACATTTGACTATTTGACTGCCATTCCAGATACTGTTGTTCAGCTGATTTGACTAGATACTGTGCCATTCCAGATACTGTGCCATTCCTCCTTTGACTCCTTTGACATTTGACTGCCATTCCAGATACTGTGCCATTCCTGTTCAGCTGGCCATTCCTGTTCAGCTGTCCTTTGACATTTGACTTCCTTTGACGCCATTCCTGTTCAGCTGAGATACTGTAGATACTGTAGATACTGTTGTTCAGCTGATTTGACTAGATACTGTGCCATTCCAGATACTGTAGATACTGTTGTTCAGCTGATTTGACTGCCATTCCATTTGACTTGTTCAGCTGTGTTCAGCTGGCCATTCCGCCATTCCAGATACTGTATTTGACTGCCATTCCAGATACTGTTGTTCAGCTGGCCATTCCAGATACTGTATTTGACTATTTGACTGCCATTCCTGTTCAGCTGTGTTCAGCTGATTTGACTAGATACTGTATTTGACTGCCATTCCGCCATTCC"
+
+# use the function to find most frequent pattern
+Frequent_Pattern(gene, 12)
