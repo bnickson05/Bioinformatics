@@ -1,6 +1,6 @@
 # This code refers to the following exercise by Rosalind https://rosalind.info/problems/ba1a/ (Accessed on September 24th, 2026)
 
-pattern_counst <- function(text, pattern) {
+pattern_count <- function(text, pattern) {
   count <- 0
   iteration <- nchar(text)-nchar(pattern) + 1
   
